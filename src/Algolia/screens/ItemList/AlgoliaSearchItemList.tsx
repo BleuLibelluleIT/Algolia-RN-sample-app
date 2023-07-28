@@ -2,6 +2,7 @@ import React from 'react';
 import {useInfiniteHits, useSearchBox} from 'react-instantsearch-hooks';
 import {Button, FlatList, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {VirtualRefinementsList} from '../../components/VirtualRefinementsList';
 
 export const AlgoliaSearchItemList = () => {
   const infiniteHits = useInfiniteHits();
@@ -16,6 +17,7 @@ export const AlgoliaSearchItemList = () => {
     <>
       <Text>{query}</Text>
       <Button title={'Go to Filters'} onPress={handleOnPress} />
+      <VirtualRefinementsList />
       <FlatList
         data={infiniteHits.hits}
         renderItem={item => {

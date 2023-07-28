@@ -1,12 +1,25 @@
 import {Button, FlatList} from 'react-native';
-import {useMenu} from 'react-instantsearch-hooks';
-import React from 'react';
+import {useInstantSearch, useRefinementList} from 'react-instantsearch-hooks';
+import React, {useEffect, useRef} from 'react';
 import CONFIG from 'react-native-config';
 
 export const AlgoliaSearchFilters = () => {
-  const {items, canRefine, refine} = useMenu({
+  const {items, canRefine, refine} = useRefinementList({
     attribute: CONFIG.FILTER_NAME as string,
   });
+
+  const {uiState, setUiState} = useInstantSearch();
+  const uiStateRef = useRef(uiState);
+
+  useEffect(() => {
+    uiStateRef.current = uiState;
+  }, [uiState]);
+
+  useEffect(() => {
+    return () => {
+      setTimeout(() => setUiState(uiStateRef.current));
+    };
+  }, [setUiState]);
 
   const refineBrand = (value: string) => {
     if (canRefine) {
