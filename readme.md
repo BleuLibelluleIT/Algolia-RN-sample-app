@@ -10,6 +10,7 @@ Create .env with your own keys:
 ALGOLIA_API_KEY=
 ALGOLIA_APP_ID=
 FILTER_NAME=
+FILTER_NAME_2=
 INDEX_NAME=
 ```
 

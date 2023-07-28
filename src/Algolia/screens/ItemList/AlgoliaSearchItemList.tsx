@@ -1,21 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useInfiniteHits, useSearchBox} from 'react-instantsearch-hooks';
 import {Button, FlatList, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import AlgoliaSearchFilters from '../Filters/AlgoliaSearchFilters';
 
 export const AlgoliaSearchItemList = () => {
   const infiniteHits = useInfiniteHits();
   const {query} = useSearchBox();
-  const {navigate} = useNavigation();
-
-  const handleOnPress = () => {
-    navigate('filters' as never);
-  };
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
+      <AlgoliaSearchFilters visible={visible} setVisible={setVisible} />
       <Text>{query}</Text>
-      <Button title={'Go to Filters'} onPress={handleOnPress} />
+      <Button title={'Go to Filters'} onPress={() => setVisible(true)} />
       <FlatList
         data={infiniteHits.hits}
         renderItem={item => {
